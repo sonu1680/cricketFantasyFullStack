@@ -6,13 +6,13 @@ const getToken = async () => {
     const jwtToken = await SecureStore.getItemAsync("jwtToken");
     return jwtToken;
   } catch (error) {
-    console.error("Error retrieving token:", error);
+    //console.error("Error retrieving token:", error);
     return null; 
   }
 };
 
 export const axiosRequest = axios.create({
-  baseURL: `https://${process.env.EXPO_PUBLIC_API_URL}/api`,
+  baseURL:process.env.EXPO_PUBLIC_API_URL,
 });
 
 axiosRequest.interceptors.request.use(
