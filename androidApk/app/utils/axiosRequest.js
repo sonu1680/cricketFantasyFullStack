@@ -12,7 +12,7 @@ const getToken = async () => {
 };
 
 export const axiosRequest = axios.create({
-  baseURL: `http://${process.env.EXPO_PUBLIC_API_URL}:3000/api`,
+  baseURL: `https://${process.env.EXPO_PUBLIC_API_URL}/api`,
 });
 
 axiosRequest.interceptors.request.use(

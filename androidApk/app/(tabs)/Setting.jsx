@@ -21,6 +21,7 @@ import { axiosRequest } from "../utils/axiosRequest";
 const Setting = () => {
   const router=useRouter();
   const [userProfile,setUserProfile]=useState(null);
+  
 const handleSignOut=async()=>{
  await SecureStore.deleteItemAsync("jwtToken");
  Toast.show({
@@ -39,7 +40,7 @@ const handleSignOut=async()=>{
       
      }
    } catch (error) {
-     console.error(error);
+     //console.error(error);
     
    }
  };

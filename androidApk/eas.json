@@ -10,7 +10,7 @@
     "preview": {
       "distribution": "internal",
       "env":{
-        "EXPO_PUBLIC_API_URL":"192.168.47.219"
+        "EXPO_PUBLIC_API_URL":"fantasyserver.azurewebsites.net "
 
       }
     },

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
@@ -25,7 +26,7 @@ import Toast from "react-native-toast-message";
 
 const UserProfile = () => {
   const router = useRouter();
-  const users=useLocalSearchParams()
+  const users = useLocalSearchParams();
   const data = JSON.parse(users.data);
   //console.log(data);
   const [profileImage, setProfileImage] = useState(null);
@@ -34,6 +35,7 @@ const UserProfile = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -51,6 +53,7 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
+    setIsLoading(true);
     const image = imageRef.current;
     try {
       const res = await axiosRequest.post("/user/postUserProfile", {
@@ -59,48 +62,33 @@ const UserProfile = () => {
         email,
         profileImage: image,
       });
-      if(res.status==201){
+      if (res.status == 201) {
         Toast.show({
           text1: "Profile updated",
           type: "success",
         });
       }
+      setIsLoading(false);
     } catch (error) {
-      console.error("error", error);
+      //console.error("error", error);
+      setIsLoading(false);
     }
   };
 
-  // const getUserData = async () => {
-  //   try {
-  //     const res = await axiosRequest.get("/user/getUserProfile");
-  //     if (res.status === 200) {
-  //       const data = res.data.message.userProfile;
-  //       setName(data.firstName);
-  //       setEmail(data.emailId),
-  //        setPhone(data.phone),
-  //         setProfileImage(data.profileImage),
-  //         setAddress(data.address);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     Toast.show({
-  //       text1: "Set user profile",
-  //       type: "error",
-  //     });
-  //   }
-  // };
-
+  let mobile;
+  const getPhonefromStoreage = async () => {
+    mobile = await SecureStore.getItemAsync("phone");
+  };
   useEffect(() => {
-   try {
-     setName(data.firstName);
-     setEmail(data.emailId),
-       setPhone(data.phone),
-       setProfileImage(data.profileImage),
-       setAddress(data.address);
-   } catch (error) {
-    
-   }
-  },[]);
+    try {
+      getPhonefromStoreage();
+      setName(data.firstName);
+      setEmail(data.emailId),
+        setPhone(mobile),
+        setProfileImage(data.profileImage),
+        setAddress(data.address);
+    } catch (error) {}
+  }, []);
   return (
     <SafeAreaView className=" bg-white">
       <Header />
@@ -186,11 +174,20 @@ const UserProfile = () => {
 
         <TouchableOpacity
           onPress={() => handleSave()}
-          className="bg-blue-500 py-3 rounded-md mt-6"
+          className={` rounded-md py-3 mb-4 ${isLoading ? "" : "bg-blue-500"}`}
         >
-          <Text className="text-white text-center font-semibold">
-            Save Changes
-          </Text>
+          {isLoading ? (
+            <View className="w-full  absolute rounded-md flex justify-center items-center ">
+              <ActivityIndicator
+                size={"large"}
+                color={"red"}
+              ></ActivityIndicator>
+            </View>
+          ) : (
+            <Text className="text-white text-center font-semibold">
+              save changes
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>

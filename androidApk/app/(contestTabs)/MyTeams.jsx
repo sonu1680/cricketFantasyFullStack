@@ -25,7 +25,7 @@ const [fantasyPoints, setFantasyPoints] = useState([]);
        setMyTeam(res.data.message.teams);
      //console.log(res.data.message.teams[0].totalFantasyPoints);
      } catch (error) {
-       console.error("Error fetching match list:", error);
+      // console.error("Error fetching match list:", error);
 
      }
   }

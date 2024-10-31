@@ -27,7 +27,7 @@ const MyTeamsList = ({ player, matchId }) => {
       className="container w-full h-44 border-2 border-gray-500/30 bg-white rounded-md overflow-hidden "
     >
       <ImageBackground
-        source={require("../assets/playground.jpg")}
+        source={require("../assets/playground.png")}
         resizeMode="cover"
         className="flex-1  "
       >

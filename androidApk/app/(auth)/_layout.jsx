@@ -6,10 +6,6 @@ const _layout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="SignUp"
-        options={{ headerShown: false }}
-      ></Stack.Screen>
-      <Stack.Screen
         name="Login"
         options={{ headerShown: false }}
       ></Stack.Screen>

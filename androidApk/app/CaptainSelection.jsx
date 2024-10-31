@@ -87,6 +87,7 @@ const CaptainSelection = () => {
 
   const handleSaveTeam = async () => {
     setIsLoading(true);
+  
 
     await selectedPlayers.forEach((player) => {
       if (player.playerId === selectedCaptain.playerId) {
@@ -106,12 +107,7 @@ const CaptainSelection = () => {
       const matchId = isTempTeam.matchId;
 
       try {
-        // const url = `http://${process.env.EXPO_PUBLIC_API_URL}:3000/api/user/postTempTeam`;
-        // const res = await axios.post(url, {
-        //   team: selectedPlayers,
-        //   matchId: matchId,
-        //   userId: "wakeel",
-        // });
+      
         const res = await axiosRequest.post("/user/postTempTeam", {
           team: selectedPlayers,
           matchId: matchId,
@@ -147,14 +143,7 @@ const CaptainSelection = () => {
       }
 
       try {
-       // const url = `http://${process.env.EXPO_PUBLIC_API_URL}:3000/api/user/postMyContest`;
-        // const res = await axios.post(url, {
-        //   myTeam: selectedPlayers,
-        //   matchId: isTempTeam.matchId,
-        //   userId: "wakeel",
-        //   contestId: isTempTeam.contestId,
-        //   contestType: isTempTeam.contestType,
-        // });
+   
         const res = await axiosRequest.post("/user/postMyContest", {
           myTeam: selectedPlayers,
             matchId: isTempTeam.matchId,
@@ -290,7 +279,7 @@ const CaptainSelection = () => {
           </View>
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ paddingBottom: 70 }}
       />
       <View className="saveteamContainer  w-full h-10  absolute bottom-4 flex flex-row justify-evenly   ">
         <View className="preview w-5/12 h-10 bg-green-600 rounded-md flex justify-center items-center shadow-lg shadow-black ">

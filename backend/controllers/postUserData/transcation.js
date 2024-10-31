@@ -2,7 +2,6 @@ import { userSchema } from "../../models/authModel.js";
 import { sendResponse } from "../../utils/response.js";
 
 export const postTransaction=async(req,res)=>{
-  console.log(req.body);
     const {
       userId,
       amount,

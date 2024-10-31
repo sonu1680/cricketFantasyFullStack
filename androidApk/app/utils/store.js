@@ -6,7 +6,7 @@ export const usePlayerStore = create((set) => ({
   setPlayer: (newPlayer) =>
     set((state) => {
       if (state.selectedPlayers.length >= 11) {
-        console.log("Cannot add more than 11 players.");
+       // console.log("Cannot add more than 11 players.");
         return state;
       }
       return {

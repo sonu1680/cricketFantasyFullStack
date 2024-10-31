@@ -45,7 +45,7 @@ const Contest = () => {
       }));
       setContestData(formattedData);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   };
 

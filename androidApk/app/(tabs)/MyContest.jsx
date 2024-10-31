@@ -23,7 +23,7 @@ const MyContest = () => {
       setUpcomingContest(matchDetails.message.upcoming);
       setCompletedContest(matchDetails.message.completed);
     } catch (error) {
-      console.error("Error fetching match list:", error);
+     // console.error("Error fetching match list:", error);
     }
   };
   useEffect(() => {

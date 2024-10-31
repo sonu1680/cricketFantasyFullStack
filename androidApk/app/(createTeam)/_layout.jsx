@@ -82,7 +82,7 @@ const [isLoading,setIsLoading]=useState(true);
       setPlayers(allCategorizedPlayers); 
       setIsLoading(false)
     } catch (error) {
-      console.error("Error fetching player data:", error);
+     // console.error("Error fetching player data:", error);
     }
   };
 

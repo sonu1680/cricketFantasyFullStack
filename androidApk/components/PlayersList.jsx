@@ -15,7 +15,7 @@ const PlayerImage = React.memo(({ faceImageurl, faceImageId }) => {
   return (
     <Image
       source={playerImage}
-      className="w-14 h-14 rounded-full"
+      className="w-14 h-14 rounded-full "
       resizeMode="contain"
       alt="player"
     />
@@ -23,7 +23,7 @@ const PlayerImage = React.memo(({ faceImageurl, faceImageId }) => {
 });
 
 const PlayerInfo = React.memo(({ nickName }) => (
-  <View className="name">
+  <View className="name pl-2 ">
     <Text className="text-xs font-popB text-black capitalize">{nickName}</Text>
     <Text className="text-xs font-popR text-gray-500 capitalize">
       sel by 87%

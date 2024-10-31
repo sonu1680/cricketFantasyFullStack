@@ -27,7 +27,7 @@ const res = await axiosRequest.get(
       console.log(res.data.message);
       setMyContests(res.data.message);
     } catch (error) {
-      console.log("Error fetching match list:", error);
+     // console.log("Error fetching match list:", error);
     }
   };
   useEffect(() => {

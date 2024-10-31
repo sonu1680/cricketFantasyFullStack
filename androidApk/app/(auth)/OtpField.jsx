@@ -1,5 +1,12 @@
-import React, { useState, useRef } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -11,7 +18,22 @@ const OtpField = () => {
   const router = useRouter();
   const { mobileNumber } = useLocalSearchParams();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [resendTimer, setResendTimer] = useState(30);
+  const [isResendDisabled, setIsResendDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const inputRefs = useRef([]);
+
+  useEffect(() => {
+    if (resendTimer > 0) {
+      const interval = setInterval(() => {
+        setResendTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    } else {
+      setIsResendDisabled(false);
+    }
+  }, [resendTimer]);
+
   const handleOtpChange = (value, index) => {
     const newOtp = [...otp];
     newOtp[index] = value;
@@ -21,18 +43,24 @@ const OtpField = () => {
       inputRefs.current[index + 1].focus();
     }
   };
-async function save(key, value) {
-  await SecureStore.setItemAsync(key, value);
-}
+
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+
+  }
+ async function savePhone(key, value) {
+   await SecureStore.setItemAsync(key, value);
+ }
+
   const handleVerifyOtp = async () => {
+    setIsLoading(true);
     const enteredOtp = otp.join("");
     if (enteredOtp.length != 6) {
       return Toast.show({
-        text1: "Enter 6 digit otp.",
+        text1: "Enter 6 digit OTP.",
         type: "error",
       });
     }
-    ///axios request
 
     try {
       const res = await axiosRequest.post("auth/otpVerification", {
@@ -40,23 +68,44 @@ async function save(key, value) {
         phone: mobileNumber,
       });
       const token = res.data.message.token;
-save("jwtToken",token)
-      
+      save("jwtToken", token);
+      savePhone("phone",mobileNumber);
+
       Toast.show({
         text1: "Login success.",
         type: "success",
       });
+      setIsLoading(false);
       router.replace("/(tabs)/Home");
     } catch (error) {
       Toast.show({
-        text1: "Wrong otp or otp Expired. Try again",
+        text1: "Wrong OTP or OTP expired. Try again.",
         type: "error",
       });
+      setIsLoading(false);
     }
   };
+
   const handleLoginPage = () => {
     router.back();
   };
+
+  const handleResendOtp = async () => {
+    setResendTimer(30);
+    setIsLoading(false);
+    try {
+      const res = await axiosRequest.post("auth/signup", {
+        phone: mobileNumber,
+      });
+    } catch (error) {}
+
+    setIsResendDisabled(true);
+    Toast.show({
+      text1: "OTP resent.",
+      type: "success",
+    });
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-red-900">
       <StatusBar style="light" />
@@ -75,7 +124,6 @@ save("jwtToken",token)
           <Text className="text-center text-gray-600 mb-4">
             Enter the OTP sent to {mobileNumber}
           </Text>
-
           <View className="flex-row justify-between mb-6">
             {otp.map((digit, index) => (
               <TextInput
@@ -91,19 +139,39 @@ save("jwtToken",token)
           </View>
 
           <TouchableOpacity
-            className="bg-red-500 rounded-md py-3 mb-4"
+            className={` rounded-md py-3 mb-4 ${isLoading ? "" : "bg-red-500"}`}
             onPress={handleVerifyOtp}
           >
-            <Text className="text-white text-center font-semibold">
-              VERIFY OTP
-            </Text>
+            {isLoading ? (
+              <View className="w-full  absolute rounded-md flex justify-center items-center ">
+                <ActivityIndicator
+                  size={"large"}
+                  color={"red"}
+                ></ActivityIndicator>
+              </View>
+            ) : (
+              <Text className="text-white text-center font-semibold">
+                SEND OTP
+              </Text>
+            )}
           </TouchableOpacity>
 
           <View className="flex-row justify-between">
-            <TouchableOpacity>
-              <Text className="text-red-500">Resend OTP</Text>
+            <TouchableOpacity
+              disabled={isResendDisabled}
+              onPress={handleResendOtp}
+            >
+              <Text
+                className={`text-red-500 ${
+                  isResendDisabled ? "opacity-50" : ""
+                }`}
+              >
+                Resend OTP
+              </Text>
             </TouchableOpacity>
-            <Text className="text-gray-500">00:30</Text>
+            <Text className="text-gray-500">
+              00:{resendTimer < 10 ? `0${resendTimer}` : resendTimer}
+            </Text>
           </View>
         </View>
 

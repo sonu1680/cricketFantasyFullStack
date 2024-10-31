@@ -24,8 +24,7 @@ const Home = () => {
   const router = useRouter();
   const [matchData, setMatchData] = useState(null);
   const setBalance = usePlayerStore((state) => state.setBalance);
-  const [refreshing,setRefreshing]=useState(false);
-
+  const [refreshing, setRefreshing] = useState(false);
 
   const getMatchList = async () => {
     try {
@@ -35,13 +34,12 @@ const Home = () => {
       setMatchData(matchDetails.data);
       setRefreshing(false);
     } catch (error) {
-      console.error("Error fetching match list:", error);
+      //console.error("Error fetching match list:", error);
       setRefreshing(false);
     } finally {
       setRefreshing(false);
     }
-  }
-
+  };
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -50,7 +48,7 @@ const Home = () => {
         await getMatchList();
         setBalance(balance);
       } catch (error) {
-        console.error("Error fetching balance:", error);
+        //  console.error("Error fetching balance:", error);
       }
     };
 
@@ -65,9 +63,6 @@ const Home = () => {
         <TabsHeader />
 
         <View className="matchListContainer w-screen h-full bg-white px-2  ">
-          {/* {refreshing ? (
-            <ActivityIndicator size={"large"} color={"red"}></ActivityIndicator>
-          ) : null} */}
           <FlatList
             data={matchData}
             renderItem={({ item }) => <MatchList match={item} />}
@@ -77,6 +72,7 @@ const Home = () => {
             }
             ListHeaderComponent={<Coursel />}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 140 }}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

@@ -5,8 +5,11 @@ import TabsHeader from "../components/TabsHeader";
 
 const Notification = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex flex-1" >
       <TabsHeader />
+      <View className="flex flex-1 flex-row justify-center items-center ">
+        <Text className="font-popSb text-lg">No Notification!</Text>
+      </View>
     </SafeAreaView>
   );
 };
