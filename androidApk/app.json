@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "fantasyAPP",
+    "slug": "fantasyAPP",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": ["fantasyapp"],
+    "splash": {
+      "image": "./assets/splashLogo2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.decoderx.fantasyAPP"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router"],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fcfb5e14-ef4a-435c-957f-b2bf0ca56451"
+      }
+    }
+  }
+}
