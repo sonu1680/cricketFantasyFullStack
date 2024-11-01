@@ -19,7 +19,7 @@ export const fetchImagefromCloudinary = async (id) => {
         type: "upload",
         prefix: "fantasyPlayersImage",
         resource_type: "image",
-        max_results:500
+        max_results: 500,
       });
 
       allImageUrl = result.resources.map((resource) => resource.secure_url);
@@ -30,7 +30,6 @@ export const fetchImagefromCloudinary = async (id) => {
 
   // Function to check if the image is present locally in the fetched array
   const checkImagePresentInLocalArray = async (imageId) => {
-   
     if (allImageUrl.length === 0) {
       await fetchImage(); // Ensure images are fetched before checking
     }
@@ -38,17 +37,16 @@ export const fetchImagefromCloudinary = async (id) => {
     // Loop through all the image URLs
     for (let i = 0; i < allImageUrl.length; i++) {
       const slicedPart = allImageUrl[i].slice(82, 88);
-    
+
       if (slicedPart == imageId) {
-     
         return allImageUrl[i]; // Return the full URL if match is found
       }
     }
 
     // If the image is not found in the local array, fetch it from the API
-   
+
     const imageUrl = await getImageFromApi(imageId);
-    
+
     return imageUrl;
   };
 
@@ -56,4 +54,21 @@ export const fetchImagefromCloudinary = async (id) => {
   const imageUrl = await checkImagePresentInLocalArray(id);
 
   return imageUrl;
+};
+
+export const cloudinarySearchImage = async (teamId) => {
+  try {
+    const result = await cloudinary.search
+      .expression(teamId.toString())
+      .execute();
+
+    if (result.resources && result.resources.length > 0) {
+      return result.resources[0].secure_url;
+    }
+
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };

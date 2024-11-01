@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 import { upcomingMatchModal } from "../models/matchSchema.js";
-import { fetchImagefromCloudinary } from "../middleware/cloudinaryFetch.js";
+import {
+  cloudinarySearchImage,
+  fetchImagefromCloudinary,
+} from "../middleware/cloudinaryFetch.js";
 import { getImageFromApi } from "../middleware/cloudinaryUpload.js";
 dotenv.config();
 
@@ -35,11 +38,8 @@ export const upcomingMatchDetails = async (req, res) => {
   const newTeam1 = matchInfo.team1;
   const newTeam2 = matchInfo.team2;
 
-          newTeam1["team1Logo"] =
-            `https://res.cloudinary.com/deboz17jx/image/upload/v1730468785/${newTeam1.id}.png`;
-              newTeam2[
-                "team2Logo"
-              ] = `https://res.cloudinary.com/deboz17jx/image/upload/v1730468785/${newTeam2.id}.png`;
+  newTeam1["teamLogo"] = await cloudinarySearchImage(newTeam1.id);
+  newTeam2["teamLogo"] = await cloudinarySearchImage(newTeam2.id);
   for (let i = 0; i < newTeam1.playerDetails.length; i++) {
     newTeam1.playerDetails[i]["credit"] = i;
     newTeam1.playerDetails[i]["fantasyCaptain"] = false;
@@ -53,7 +53,6 @@ export const upcomingMatchDetails = async (req, res) => {
   }
 
   for (let i = 0; i < newTeam2.playerDetails.length; i++) {
-
     newTeam2.playerDetails[i]["credit"] = i;
     newTeam2.playerDetails[i]["fantasyCaptain"] = false;
     newTeam2.playerDetails[i]["fantasyViceCaptain"] = false;

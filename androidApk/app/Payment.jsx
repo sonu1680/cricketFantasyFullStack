@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,12 +15,13 @@ import { usePlayerStore } from "./utils/store";
 import RazorpayCheckout from "react-native-razorpay";
 const Payment = () => {
   const { type } = useLocalSearchParams();
-  const balance=usePlayerStore((state)=>state.balance)
+  const balance = usePlayerStore((state) => state.balance);
   const [amount, setAmount] = useState("100");
   const predefinedAmounts = [100, 200, 500, 1000, 1500, 2000];
   const router = useRouter();
-
-  const handleAddMoney = async() => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleAddMoney = async () => {
+    setIsLoading(true);
     const data = {
       amount: Number(amount),
       transactionType: type,
@@ -47,12 +54,19 @@ const Payment = () => {
     //     alert(`Error: ${error.code} | ${error.description}`);
     //   });
 
-
-    const res=await postTransaction(data);
-    if(res==201){
-      router.push("Wallet");
+    try {
+      const res = await postTransaction(data);
+      if (res == 201) {
+        setIsLoading(false);
+        router.push("Wallet");
+      }
+    } catch (error) {
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   return (
     <SafeAreaView className="flex flex-1">
       <StatusBar style="light" />
@@ -96,9 +110,13 @@ const Payment = () => {
             onPress={handleAddMoney}
             className="bg-blue-500 rounded-md py-3 items-center"
           >
-            <Text className="text-white font-semibold">
-              {type == "Withdraw" ? "Withdrawl Money" : "Add Money"}
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator size={"small"} color={"red"} />
+            ) : (
+              <Text className="text-white font-semibold">
+                {type == "Withdraw" ? "Withdrawl Money" : "Add Money"}
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>

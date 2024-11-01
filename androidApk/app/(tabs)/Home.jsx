@@ -72,7 +72,7 @@ const Home = () => {
             }
             ListHeaderComponent={<Coursel />}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 140 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

@@ -11,7 +11,6 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
 
   // Update state only when myContestDetails changes
   useEffect(() => {
-    console.log(match);
     if (myContestDetails) {
       setMyContestDetail(myContestDetails);
     }
@@ -67,8 +66,8 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
         })
       }
     >
-      <View className="upper w-full h-4 flex justify-center items-center">
-        <Text className="matchType text-sm font-semibold text-gray-600">
+      <View className="upper w-full h-6  flex justify-center items-center">
+        <Text className="matchType text-xs  font-popSb text-gray-600">
           {match.seriesName}
         </Text>
       </View>
@@ -77,15 +76,23 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
         <View className="left h-full w-2/6 flex justify-start flex-row space-x-2 items-center">
           <View className="dot w-1.5 h-8 bg-red-600 rounded-tr-md rounded-br-md"></View>
           <View className="w-12 h-12 rounded-full border-4 border-white flex justify-center items-center">
-            <Image
-              source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZxyCy_wcLunDEVdq6bE3ciYbd_8EXoHQkOw&s",
-              }}
-              className="w-12 h-12 rounded-full"
-              resizeMode="contain"
-            />
+            {match.matchDetails[0].team1.teamLogo == null ? (
+              <Image
+                source={require("../assets/playerImg.png")}
+                className="w-12 h-12 rounded-full"
+                resizeMode="cover"
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: match.matchDetails[0].team1.teamLogo,
+                }}
+                className="w-12 h-12 rounded-full"
+                resizeMode="cover"
+              />
+            )}
           </View>
-          <Text className="team1 font-bold text-lg">
+          <Text className="team1 font-popSb text-lg">
             {match.matchDetails[0].team1.shortName}
           </Text>
         </View>
@@ -118,7 +125,7 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
               </Text>
             </View>
             <View className="timeRemain w-content h-content p-1 rounded-md bg-red-600/20">
-              <Text className="remain font-bold text-red-600 text-xs">
+              <Text className="remain font-popSb text-red-600 text-xs">
                 {matchTimeRemaining}
               </Text>
             </View>
@@ -130,12 +137,21 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
             {match.matchDetails[0].team2.shortName}
           </Text>
           <View className="w-12 h-12 rounded-full border-4 border-white flex justify-center items-center">
-            <Image
-              source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZxyCy_wcLunDEVdq6bE3ciYbd_8EXoHQkOw&s",
-              }}
-              className="w-12 h-12 rounded-full"
-            />
+            {match.matchDetails[0].team2.teamLogo == null ? (
+              <Image
+                source={require("../assets/playerImg.png")}
+                className="w-12 h-12 rounded-full"
+                resizeMode="cover"
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: match.matchDetails[0].team2.teamLogo,
+                }}
+                className="w-12 h-12 rounded-full"
+                resizeMode="cover"
+              />
+            )}
           </View>
           <View className="dot w-1.5 h-8 bg-red-600 rounded-tl-md rounded-bl-md"></View>
         </View>
@@ -148,7 +164,7 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
           end={{ x: 1, y: 0 }}
           className="w-2/6 h-full justify-center items-center rounded-bl-xl"
         >
-          <Text className="font-semibold text-xs text-center text-green-600 uppercase">
+          <Text className="font-popSb text-xs text-center text-green-600 uppercase">
             {myContestDetail
               ? myContestDetail.teamNo + " Team"
               : "1 prize ₹1000"}
@@ -160,7 +176,7 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
           end={{ x: 0, y: 0 }}
           className="w-2/6 h-full justify-center items-center rounded-br-xl"
         >
-          <Text className="font-semibold text-xs text-center text-red-600 uppercase">
+          <Text className="font-popSb text-xs text-center text-red-600 uppercase">
             {myContestDetail
               ? myContestDetail.contestNo + " Contest"
               : "winBike"}
