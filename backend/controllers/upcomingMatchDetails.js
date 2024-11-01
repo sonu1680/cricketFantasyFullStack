@@ -32,15 +32,18 @@ export const upcomingMatchDetails = async (req, res) => {
   setMatch.result = [];
   setMatch.contest = [];
 
-
-  
   const newTeam1 = matchInfo.team1;
   const newTeam2 = matchInfo.team2;
 
+          newTeam1["team1Logo"] =
+            `https://res.cloudinary.com/deboz17jx/image/upload/v1730468785/${newTeam1.id}.png`;
+              newTeam2[
+                "team2Logo"
+              ] = `https://res.cloudinary.com/deboz17jx/image/upload/v1730468785/${newTeam2.id}.png`;
   for (let i = 0; i < newTeam1.playerDetails.length; i++) {
     newTeam1.playerDetails[i]["credit"] = i;
     newTeam1.playerDetails[i]["fantasyCaptain"] = false;
-     newTeam1.playerDetails[i]["fantasyViceCaptain"] = false;
+    newTeam1.playerDetails[i]["fantasyViceCaptain"] = false;
 
     const url = await fetchImagefromCloudinary(
       matchInfo.team1.playerDetails[i].faceImageId
@@ -49,12 +52,11 @@ export const upcomingMatchDetails = async (req, res) => {
     newTeam1.playerDetails[i]["faceImageurl"] = url;
   }
 
+  for (let i = 0; i < newTeam2.playerDetails.length; i++) {
 
-
-  for (let i = 0; i < newTeam2.playerDetails.length ; i++) {
     newTeam2.playerDetails[i]["credit"] = i;
-      newTeam2.playerDetails[i]["fantasyCaptain"] = false;
-      newTeam2.playerDetails[i]["fantasyViceCaptain"] = false;
+    newTeam2.playerDetails[i]["fantasyCaptain"] = false;
+    newTeam2.playerDetails[i]["fantasyViceCaptain"] = false;
 
     const url = await fetchImagefromCloudinary(
       matchInfo.team2.playerDetails[i].faceImageId
@@ -62,15 +64,13 @@ export const upcomingMatchDetails = async (req, res) => {
     newTeam2.playerDetails[i]["faceImageurl"] = url;
   }
 
-  console.log("img uploaded");
   //fetch banner image fro api
-  console.log(matchInfo.matchImageId,"banner img id");
   const matchBannerImg = await getImageFromApi(
     matchInfo.matchImageId,
     "matchBanners"
   );
 
-  //push  data to database 
+  //push  data to database
 
   setMatch.matchDetails.push({
     matchId: matchInfo.matchId,

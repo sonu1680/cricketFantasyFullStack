@@ -6,10 +6,12 @@ import { usePlayerStore } from "../app/utils/store";
 
 const MatchList = ({ match, myContestDetails, isMyContest }) => {
   const router = useRouter();
+  
   const [myContestDetail, setMyContestDetail] = useState(myContestDetails);
 
   // Update state only when myContestDetails changes
   useEffect(() => {
+    console.log(match);
     if (myContestDetails) {
       setMyContestDetail(myContestDetails);
     }
