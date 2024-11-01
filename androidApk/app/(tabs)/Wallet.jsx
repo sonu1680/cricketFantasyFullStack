@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TransactionList from "../../components/TransactionList";
 import TabsHeader from "../../components/TabsHeader";
@@ -28,8 +35,8 @@ const Wallet = () => {
 
         const transactions = await getTransaction();
         setTempTrxData(transactions);
-        setMyTransactions(transactions); 
-       // console.log(transactions);
+        setMyTransactions(transactions);
+        // console.log(transactions);
       } catch (error) {
         //console.error("Error fetching balance:", error);
       }
@@ -58,16 +65,15 @@ const Wallet = () => {
           filter === "All"
             ? tempTrxData
             : tempTrxData.filter((e) => e.transactionType === filter);
-       
-              setMyTransactions(filteredTrx);
-            
+
+        setMyTransactions(filteredTrx);
       }
     },
     [tempTrxData]
   );
-const handleseeAllTrx=()=>{
-  router.push("AllTransactionPage")
-}
+  const handleseeAllTrx = () => {
+    router.push("AllTransactionPage");
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TabsHeader />
@@ -189,8 +195,11 @@ const handleseeAllTrx=()=>{
           initialNumToRender={10}
           ListEmptyComponent={
             <View className="flex flex-1 flex-row justify-center items-center mt-[30%] ">
-              {/* <Text className="font-popSb text-lg">No transaction found</Text> */}
-              <ActivityIndicator size={"large"} color={"red"} />
+              {myTransaction==null? (
+                <ActivityIndicator size={"large"} color={"red"} />
+              ) : (
+                <Text className="font-popSb text-lg">No transaction found</Text>
+              )}
             </View>
           }
         />

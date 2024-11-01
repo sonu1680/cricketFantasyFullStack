@@ -25,7 +25,7 @@ const LiveContests = ({ matchData }) => {
     <Animated.View
       entering={FadeInRight}
       exiting={FadeInLeft}
-      className="matchListContainer w-screen h-full bg-gray-300 px-2  "
+      className="matchListContainer w-screen h-full bg-white px-2  "
     >
       <FlatList
         data={matchData}

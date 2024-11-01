@@ -25,7 +25,7 @@ const UpcomingContests = ({ matchData,sonuu }) => {
   return (
     <Animated.View
       entering={FadeInRight}
-      className="matchListContainer w-screen h-full bg-gray-300 px-2  "
+      className="matchListContainer w-screen h-full bg-white px-2  "
     >
       <FlatList
         data={matchData}

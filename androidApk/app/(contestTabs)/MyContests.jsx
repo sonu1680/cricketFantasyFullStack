@@ -1,16 +1,13 @@
 import {
   View,
   Text,
-  SectionList,
   FlatList,
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import axios from "axios";
 import Header from "../../components/Header";
 import { usePlayerStore } from "../utils/store";
-import ContestListHeader from "../../components/ContestListHeader";
 import ContestList from "../../components/ContestList";
 import { axiosRequest } from "../utils/axiosRequest";
 
@@ -24,7 +21,6 @@ const MyContests = () => {
 const res = await axiosRequest.get(
   `/user/getUserContests?matchId=${headerData.matchId}`
 );
-      console.log(res.data.message);
       setMyContests(res.data.message);
     } catch (error) {
      // console.log("Error fetching match list:", error);

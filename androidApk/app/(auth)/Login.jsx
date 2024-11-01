@@ -33,9 +33,11 @@ const Login = () => {
 
     setIsLoading(true);
     try {
+      
       const res = await axiosRequest.post("auth/signup", {
         phone: mobileNumber,
       });
+     
       if (res.status == 200) {
         setIsLoading(false);
 

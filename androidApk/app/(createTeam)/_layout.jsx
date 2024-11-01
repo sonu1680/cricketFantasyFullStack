@@ -92,7 +92,11 @@ const [isLoading,setIsLoading]=useState(true);
 
 
 if(isLoading){
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return (
+      <View className="flex flex-1 justify-center items-center" >
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
 }
 
 

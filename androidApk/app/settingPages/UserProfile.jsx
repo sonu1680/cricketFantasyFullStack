@@ -23,6 +23,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/Header";
 import TabsHeader from "../../components/TabsHeader";
 import Toast from "react-native-toast-message";
+import * as SecureStore from "expo-secure-store";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -78,13 +79,15 @@ const UserProfile = () => {
   let mobile;
   const getPhonefromStoreage = async () => {
     mobile = await SecureStore.getItemAsync("phone");
+     setPhone(mobile);
   };
+  
   useEffect(() => {
     try {
       getPhonefromStoreage();
       setName(data.firstName);
       setEmail(data.emailId),
-        setPhone(mobile),
+     
         setProfileImage(data.profileImage),
         setAddress(data.address);
     } catch (error) {}
