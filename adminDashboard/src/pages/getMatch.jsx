@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const GetSeriesMatch = () => {
   const { matchId } = useParams();
-
+const navigation=useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
   const [matchImage, setMatchImage] = useState(null);
   const [seriesDatas, setSeriesData] = useState({});
@@ -26,7 +27,7 @@ const GetSeriesMatch = () => {
       setSeriesData(seriesData);
       setMatchImage(seriesData.matchInfo.matchImageId);
     } catch (error) {
-      console.error("Error fetching match data:", error);
+      toast.error("Error fetching match data");
     }
   };
 
@@ -48,24 +49,31 @@ const GetSeriesMatch = () => {
       const imgUrl = URL.createObjectURL(response.data);
       setImageUrl(imgUrl);
     } catch (error) {
-      console.error("Error fetching image:", error);
+      toast.error("Error fetching image");
     }
   };
+
   const postData = async () => {
     setIsLoading(true);
-    //const url = "http://localhost:3000/api/matchDetails";
     const url = `${import.meta.env.VITE_DB_URL}/api/matchDetails`;
+
+
 
     try {
       const res = await axios.post(url, seriesDatas);
       if (res.status == 201) {
         setIsLoading(false);
       }
-      alert(res.data.msg);
+            toast.success(res.data.msg);
+
+      const teamVerses=seriesDatas.matchInfo.team1.name+" vs "+seriesDatas.matchInfo.team2.name;
+        navigation(
+          `/createContest/${seriesDatas.matchInfo.matchId}/${seriesDatas.matchInfo.series.name}/${teamVerses}`
+        );
+
     } catch (error) {
-      console.error("Error posting match details:", error);
-      alert(error.response.data.msg);
-      setIsLoading(false);
+      toast.error("Error posting match details");
+     // alert(error.response.data.msg);
     } finally {
       setIsLoading(false);
     }
@@ -79,71 +87,108 @@ const GetSeriesMatch = () => {
     getImage();
   }, [matchImage]);
 
+  
   return (
-    <div className="flex-1 w-full h-full">
+    <div className="flex flex-col items-center  justify-center p-6 min-h-screen bg-gray-50">
       {isLoading && (
-        <div className="loading w-full h-full bg-black/50 absolute flex justify-center items-center ">
-          <img src="/loading.gif" className="w-20 h-20" alt="" />{" "}
+        <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
+          <img src="/loading.gif" className="w-20 h-20" alt="Loading" />
         </div>
       )}
-      {seriesDatas.matchInfo ? (
-        <div>
-          <div>Series Name: {seriesDatas.matchInfo.series.name}</div>
-          <div>Match ID: {seriesDatas.matchInfo.matchId}</div>
-          <div>Match State: {seriesDatas.matchInfo.state}</div>
-          <div>Match Start: {seriesDatas.matchInfo.status}</div>
 
-          <div className="playerDetailContainer w-[400px] flex flex-row  gap-x-4">
-            <div className="team1 w-1/2 flex flex-col justify-center items-center ">
-              <h1>Team1</h1>
+      {seriesDatas.matchInfo ? (
+        <div className=" shadow-lg rounded-lg p-6  w-full ">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+              Match Details
+            </h2>
+            <p className="text-gray-600">
+              <strong>Series Name:</strong> {seriesDatas.matchInfo.series.name}
+            </p>
+            <p className="text-gray-600">
+              <strong>Match ID:</strong> {seriesDatas.matchInfo.matchId}
+            </p>
+            <p className="text-gray-600">
+              <strong>State:</strong> {seriesDatas.matchInfo.state}
+            </p>
+            <p className="text-gray-600">
+              <strong>Start Status:</strong> {seriesDatas.matchInfo.status}
+            </p>
+          </div>
+
+          <div className="flex gap-8 mb-8">
+            {/* Team 1 Details */}
+            <div className="w-1/2 bg-gray-100 p-4 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+                Team 1 Players
+              </h3>
               {seriesDatas.matchInfo.team1?.playerDetails?.length > 0 ? (
                 seriesDatas.matchInfo.team1.playerDetails.map(
                   (player, index) => (
                     <div
                       key={player.id || index}
-                      className="mt-1 bg-green-300 w-full h-10 flex justify-between px-4 items-center rounded-lg "
+                      className="flex justify-between bg-white p-3 rounded-md mb-2 shadow-sm"
                     >
-                      <p>{index + 1}</p>
-                      <p>{player.name}</p>
+                      <span>{index + 1}</span>
+                      <span>{player.name}</span>
                     </div>
                   )
                 )
               ) : (
-                <div>No team data available</div>
+                <p className="text-gray-500 text-center">
+                  No team data available
+                </p>
               )}
             </div>
 
-            <div className="team2 w-1/2 flex flex-col justify-center  items-center">
-              <h1>Team2</h1>
+            {/* Team 2 Details */}
+            <div className="w-1/2 bg-gray-100 p-4 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+                Team 2 Players
+              </h3>
               {seriesDatas.matchInfo.team2?.playerDetails?.length > 0 ? (
                 seriesDatas.matchInfo.team2.playerDetails.map(
                   (player, index) => (
                     <div
                       key={player.id || index}
-                      className="mt-1 bg-green-300 w-full h-10 flex justify-between px-4 items-center rounded-lg "
+                      className="flex justify-between bg-white p-3 rounded-md mb-2 shadow-sm"
                     >
-                      <p>{index + 1}</p>
-                      <p>{player.name}</p>
+                      <span>{index + 1}</span>
+                      <span>{player.name}</span>
                     </div>
                   )
                 )
               ) : (
-                <div>No team player found</div>
+                <p className="text-gray-500 text-center">
+                  No team player found
+                </p>
               )}
             </div>
           </div>
 
+          {/* Match Image */}
           {imageUrl ? (
-            <img src={imageUrl} alt="poster" className="w-96 h-90" />
+            <div className="flex  justify-center mb-6">
+              <img
+                src={imageUrl}
+                alt="Match Poster"
+                className="rounded-lg shadow-lg  "
+              />
+            </div>
           ) : (
-            <p>Loading image...</p>
+            <p className="text-gray-500 text-center">Loading image...</p>
           )}
+
+          <Button
+            onClick={postData}
+            className="w-full py-3 text-lg font-semibold"
+          >
+            Post Match Details
+          </Button>
         </div>
       ) : (
-        <p>Loading match data...</p>
+        <p className="text-gray-600">Loading match data...</p>
       )}
-
-      <Button onClick={postData}>Post Match Details</Button>
     </div>
   );
 };

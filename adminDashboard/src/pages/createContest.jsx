@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import axios from 'axios';
+import axios from "axios";
 import {
   Card,
   CardContent,
@@ -19,14 +19,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useParams } from "react-router-dom";
-import { toast, Toaster } from "sonner";
-
-
+import { MyContestCard } from "@/components/MyContestCard";
+import { toast } from "react-toastify";
 
 export const CreateContest = () => {
   const { contestMatchId, seriesName, teamVerses } = useParams();
   const [contestData, setContestData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [matchContests, setMatchContests] = useState([]);
 
+  // Handle input changes for the form
   const handleChanges = (e) => {
     const { name, value } = e.target;
     setContestData((prevData) => ({
@@ -35,17 +37,36 @@ export const CreateContest = () => {
     }));
   };
 
+  // Handle select input changes
   const handleSelectChange = (value) => {
     setContestData((prevData) => ({
       ...prevData,
       contestType: value,
       matchId: contestMatchId,
     }));
-    
   };
 
+  // Fetch contests for the given match
+  const fetchContestOfMatch = async () => {
+    try {
+      const res = await axios.get(
+        `${
+          import.meta.env.VITE_DB_URL
+        }/api/getContestofMatches?matchId=${contestMatchId}`
+      );
+      setMatchContests(res.data.msg);
+    } catch (error) {
+      console.error("No contest found");
+    }
+  };
+
+  // Fetch contest data when component mounts
+  useEffect(() => {
+    fetchContestOfMatch();
+  }, []);
+
+  // Handle form submission
   const handleSubmit = async () => {
-    // Check if all required fields are filled
     const {
       contestTitle,
       contestSubTitle,
@@ -53,6 +74,8 @@ export const CreateContest = () => {
       prizePool,
       numberOfSpots,
     } = contestData;
+
+    // Validate required fields
     if (
       !contestTitle ||
       !contestSubTitle ||
@@ -60,96 +83,120 @@ export const CreateContest = () => {
       !prizePool ||
       !numberOfSpots
     ) {
-     alert('fill all details')
-      return; 
+      toast.error("Please fill in all required fields");
+      return;
     }
 
-  
+    setIsLoading(true);
 
-try {
-  const url = "http://localhost:3000/api/createContest";
-  const res=await axios.post(url,contestData);
-  console.log(res)
- // setContestData({});
-} catch (error) {
-  console.log(error,'api post error')
-}
-
-  
-    
+    try {
+      const url = `${import.meta.env.VITE_DB_URL}/api/createContest`;
+      await axios.post(url, contestData);
+      setIsLoading(false);
+      setContestData({}); // Clear form
+      fetchContestOfMatch(); // Refresh contests
+      toast.success("Contest created!");
+    } catch (error) {
+      toast.error("Failed to create contest");
+      setIsLoading(false);
+    }
   };
 
   return (
-    <>
-      <Card className="w-screen bg-gray-400">
-        <CardHeader>
-          <CardTitle>Contest Form</CardTitle>
-          <CardTitle>{seriesName}</CardTitle>
-          <CardTitle>{teamVerses}</CardTitle>
-          <CardDescription>{contestMatchId}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="contestTitle">Contest Title</Label>
-                <Input
-                  id="contestTitle"
-                  name="contestTitle"
-                  placeholder="Name of your contest"
-                  required
-                  onChange={handleChanges}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="contestSubTitle">Contest Subtitle</Label>
-                <Input
-                  id="contestSubTitle"
-                  name="contestSubTitle"
-                  placeholder="Subtitle of your contest"
-                  onChange={handleChanges}
-                />
-              </div>
+    <div className="flex flex-col lg:flex-row w-full gap-8 bg-gray-100 p-6">
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+          <img src="/loading.gif" className="w-20 h-20" alt="Loading" />
+        </div>
+      )}
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="contestType">Contest Type</Label>
-                <Select name="contestType" onValueChange={handleSelectChange}>
-                  <SelectTrigger id="contestType">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="Head to head">Head to head</SelectItem>
-                    <SelectItem value="Grad league">Grad league</SelectItem>
-                    <SelectItem value="Free contest">Free contest</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="prizePool">Prize Pool</Label>
-                <Input
-                  id="prizePool"
-                  name="prizePool"
-                  placeholder="Enter the prize pool amount"
-                  onChange={handleChanges}
-                />
-              </div>
-              
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="numberOfSpots">Number of Spots/Entries</Label>
-                <Input
-                  id="numberOfSpots"
-                  name="numberOfSpots"
-                  placeholder="Enter the number of spots"
-                  onChange={handleChanges}
-                />
-              </div>
+      {/* Contest Creation Form */}
+      <Card className="flex-1 max-w-lg mx-auto bg-white shadow-lg rounded-lg overflow-hidden w-full">
+        <CardHeader className="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 text-white">
+          <CardTitle className="text-2xl font-bold">Create Contest</CardTitle>
+          <CardDescription className="mt-1 text-sm text-white">
+            {seriesName} - {teamVerses}
+          </CardDescription>
+          <CardDescription className="text-xs text-white">
+            Match ID: {contestMatchId}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-6">
+          <form className="space-y-6">
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="contestTitle">Contest Title</Label>
+              <Input
+                id="contestTitle"
+                name="contestTitle"
+                placeholder="Enter contest title"
+                onChange={handleChanges}
+                className="border rounded-lg px-3 py-2"
+              />
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="contestSubTitle">Contest Subtitle</Label>
+              <Input
+                id="contestSubTitle"
+                name="contestSubTitle"
+                placeholder="Enter contest subtitle"
+                onChange={handleChanges}
+                className="border rounded-lg px-3 py-2"
+              />
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="contestType">Contest Type</Label>
+              <Select name="contestType" onValueChange={handleSelectChange}>
+                <SelectTrigger id="contestType" className="border rounded-lg">
+                  <SelectValue placeholder="Select contest type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Head to head">Head to head</SelectItem>
+                  <SelectItem value="Grand league">Grand league</SelectItem>
+                  <SelectItem value="Free contest">Free contest</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="prizePool">Prize Pool</Label>
+              <Input
+                id="prizePool"
+                name="prizePool"
+                placeholder="Enter prize pool amount"
+                onChange={handleChanges}
+                className="border rounded-lg px-3 py-2"
+              />
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="numberOfSpots">Number of Spots</Label>
+              <Input
+                id="numberOfSpots"
+                name="numberOfSpots"
+                placeholder="Enter number of spots"
+                onChange={handleChanges}
+                className="border rounded-lg px-3 py-2"
+              />
             </div>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button onClick={handleSubmit}>Create</Button>
+        <CardFooter className="p-4 bg-gray-100 flex justify-end">
+          <Button
+            onClick={handleSubmit}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg"
+          >
+            Create Contest
+          </Button>
         </CardFooter>
       </Card>
-    </>
+
+      {/* Contest List */}
+      <div className="flex-1 lg:max-w-lg">
+        <MyContestCard contests={matchContests} />
+      </div>
+    </div>
   );
 };
