@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Loader2 } from "lucide-react";
 
 const GetSeries = () => {
   const navigate = useNavigate();
@@ -48,8 +49,11 @@ const GetSeries = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-black/80 flex flex-1 justify-center items-center ">
-        <img src="/loading.gif" className="w-20 h-20" alt="Loading" />
+      <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+        <div className="flex items-center gap-3">
+          <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+          <p className="text-lg font-medium">Loading series...</p>
+        </div>
       </div>
     );
   }

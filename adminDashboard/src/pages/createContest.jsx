@@ -21,6 +21,7 @@ import {
 import { useParams } from "react-router-dom";
 import { MyContestCard } from "@/components/MyContestCard";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 export const CreateContest = () => {
   const { contestMatchId, seriesName, teamVerses } = useParams();
@@ -106,8 +107,11 @@ export const CreateContest = () => {
     <div className="flex flex-col lg:flex-row w-full gap-8 bg-gray-100 p-6">
       {/* Loading Overlay */}
       {isLoading && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-          <img src="/loading.gif" className="w-20 h-20" alt="Loading" />
+        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+            <p className="text-lg font-medium">Loading matches...</p>
+          </div>
         </div>
       )}
 

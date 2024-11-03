@@ -3,6 +3,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 const GetSeriesMatch = () => {
   const { matchId } = useParams();
@@ -91,8 +92,11 @@ const navigation=useNavigate();
   return (
     <div className="flex flex-col items-center  justify-center p-6 min-h-screen bg-gray-50">
       {isLoading && (
-        <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-          <img src="/loading.gif" className="w-20 h-20" alt="Loading" />
+        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+            <p className="text-lg font-medium">Loading matches...</p>
+          </div>
         </div>
       )}
 
