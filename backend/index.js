@@ -6,6 +6,7 @@ import {router} from './router/addMatch.js'
 import { authRouters } from './router/authRouter.js';
 import { userRoute } from './router/userData.js';
 import { adminData } from './router/adminData.js';
+import { fetchScoreFromRapid } from './controllers/liveScoreQueue/fetchScoreFromRapid.js';
 
 dotenv.config();
 const port=process.env.PORT || 4000;
@@ -20,8 +21,9 @@ app.use("/api/auth", authRouters);
 app.use("/api/user", userRoute);
 app.use("/api/admin", adminData);
 
-
-
+setTimeout(()=>{
+  fetchScoreFromRapid()
+},1000)
 
 
 mongoose.connect(dbUrl).then(()=>{

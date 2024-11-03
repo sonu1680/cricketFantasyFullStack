@@ -5,6 +5,7 @@ import {
   fetchImagefromCloudinary,
 } from "../middleware/cloudinaryFetch.js";
 import { getImageFromApi } from "../middleware/cloudinaryUpload.js";
+import { liveScoreQueue } from "../models/liveScoreQueueModel.js";
 dotenv.config();
 
 export const upcomingMatchDetails = async (req, res) => {
@@ -21,14 +22,18 @@ export const upcomingMatchDetails = async (req, res) => {
     matchInfo.team1.shortName + " vs " + matchInfo.team2.shortName;
   const setMatch = new upcomingMatchModal({
     matchId: matchInfo.matchId,
-    matchState: matchInfo.state,
+    matchState: matchInfo.state.toLowerCase(),
     matchStatus: matchInfo.status,
     seriesName: matchInfo.series.name,
     teamVerses: teamVerses,
     startAt: new Date(matchInfo.matchStartTimestamp).toLocaleString(),
     endAt: new Date(matchInfo.matchCompleteTimestamp).toLocaleString(),
   });
-
+  const matchQueue = new liveScoreQueue({
+    matchId: matchInfo.matchId,
+    matchState: matchInfo.state.toLowerCase(),
+    matchSchedule: matchInfo.matchStartTimestamp,
+  });
   setMatch.matchDetails = [];
   setMatch.liveScore = [];
   setMatch.fantasyPoints = [];
@@ -83,6 +88,6 @@ export const upcomingMatchDetails = async (req, res) => {
   });
 
   await setMatch.save();
-
+  await matchQueue.save();
   return res.status(201).json({ msg: "Match created succesfully" });
 };

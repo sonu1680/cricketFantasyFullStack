@@ -38,7 +38,6 @@ export const uploadImageToCloudinary = async (base64Image, options = {}) => {
 /// function to to get player image from api with playerfaceId for face image..
 
   export const getImageFromApi = async (imgId,folder) => {
-  console.log(imgId, folder,"clouUpload");
     const options = {
       method: "GET",
       url: `https://cricbuzz-cricket.p.rapidapi.com/img/v1/i1/c${imgId}/i.jpg`,

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {  Stack, useRouter } from "expo-router";
 import AnimatedSplashScreen from "../components/AnimatedSplashScreen";
 import { useFonts } from "@expo-google-fonts/poppins";
-
 import Toast from "react-native-toast-message";
 
 

@@ -1,14 +1,13 @@
 import axios from "axios";
 import { upcomingMatchModal } from "../models/matchSchema.js";
-import { fantasyPoints } from "./fantasyPoints.js";
-export const liveScore = async (req, res) => {
-  const { matchId } = req.query;
-const id=matchId;
+import { fantasyPoints } from "../controllers/fantasyPoints.js";
+
+export const liveScoreApi = async (id) => {
   const options = {
     method: "GET",
     url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${id}/scard`,
     headers: {
-      "x-rapidapi-key": process.env.RAPIDAPIKEY,
+      "x-rapidapi-key": process.env.RAPIDAPIKEY2,
       "x-rapidapi-host": "cricbuzz-cricket.p.rapidapi.com",
     },
   };
@@ -17,18 +16,15 @@ const id=matchId;
 
     const data = response.data.scoreCard;
     if (data == undefined || data.length == 0) {
-      return res
-        .status(404)
-        .json({
-          msg: "Match is not started or liveScore is not present currently,try after sometime.",
-        });
+      return {
+        msg: "Match is not started or liveScore is not present currently,try after sometime.",
+        res:404
+      };
     }
     const matchId = data[0].matchId;
     const match = await upcomingMatchModal.findOne({ matchId: matchId });
     if (!match) {
-      return res
-        .status(404)
-        .json({ msg: "not match found, please create create match first." });
+      return { msg: "not match found, please create create match first." ,res:404};
     }
 
     //update the stae and status of match
@@ -56,12 +52,15 @@ const id=matchId;
 
     await match.save();
     const fantasyPoint = await fantasyPoints(id);
-    return res.status(201).json({
+    return {
       msg: "liveScore updated",
       liveScore: match.liveScore,
       points: fantasyPoint,
-    });
+      matchState: response.data.matchHeader.state,
+      res:200
+    };
   } catch (error) {
     console.error(error);
+    return error
   }
 };

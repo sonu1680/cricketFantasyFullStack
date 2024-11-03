@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 const GetSeries = () => {
   const navigate = useNavigate();

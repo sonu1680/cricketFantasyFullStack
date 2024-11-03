@@ -52,8 +52,7 @@ export const CreateContest = () => {
     try {
       const res = await axios.get(
         `${
-          import.meta.env.VITE_DB_URL
-        }/api/getContestofMatches?matchId=${contestMatchId}`
+          import.meta.env.VITE_DB_URL}/api/getContestofMatches?matchId=${contestMatchId}`
       );
       setMatchContests(res.data.msg);
     } catch (error) {
