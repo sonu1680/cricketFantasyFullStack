@@ -1,7 +1,6 @@
 import React from "react";
 
 const PlayerLists = ({ data }) => {
-    console.log(data,"s")
   return (
     <div className="p-4">
       <div className="overflow-x-auto">
