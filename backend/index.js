@@ -12,8 +12,8 @@ const port = process.env.PORT || 4000;
 const dbUrl = process.env.DB_URL;
 
 const app = express();
-app.use(express.json({ limit: "20MB" }));
 app.use(cors({}));
+app.use(express.json({ limit: "20MB" }));
 app.use("/api", router);
 app.use("/api/auth", authRouters);
 app.use("/api/user", userRoute);

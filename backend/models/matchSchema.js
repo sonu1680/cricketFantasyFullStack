@@ -6,7 +6,7 @@ const upcomingMatchData = new mongoose.Schema({
   matchType: { type: String,  },
   matchStartTimestamp: { type: Number,  },
   state: { type: String,  },
-  matchBanner:{type:String,required:true},
+  matchBanner:{type:String,required:false},
   team1: { type: mongoose.Schema.Types.Mixed,  },
   team2: { type: mongoose.Schema.Types.Mixed,  },
 });
