@@ -32,11 +32,11 @@ const contest = new mongoose.Schema({
 });
   
 const userProfileSchema = new mongoose.Schema({
-  firstName: { type: String, required: false, default: null },
-  lastName: { type: String, required: false, default: null },
+  firstName: { type: String, required: false, default: "fantasy11" },
+  lastName: { type: String, required: false, default: "fantasy11" },
   address: { type: String, required: false, default: null },
   profileImage: { type: String, required: false, default: null },
-  emailId: { type: String, required: false, default: null },
+  emailId: { type: String, required: false, default: "email@gmail.com" },
   otp: { type: String, required: true },
   otpExpiration: {
     type: Date,
