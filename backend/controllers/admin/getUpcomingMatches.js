@@ -43,7 +43,7 @@ export const getLiveMatches = async (req, res) => {
     const data = await upcomingMatchModal.find(
       {
         matchState: {
-          $in: ["Live", "live", "inprogress", "Inprogress","InProgress"],
+          $in: ["Live", "live", "inprogress", "Inprogress","InProgress","In Progress","In progress"],
         },
       },
       "matchId matchState matchDetails.matchStartTimestamp matchStatus matchDetails.matchBanner seriesName matchDetails.team1.name matchDetails.team2.name matchDetails.team1.teamLogo matchDetails.team2.teamLogo teamVerses" // Specify fields to retrieve

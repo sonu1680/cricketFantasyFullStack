@@ -43,14 +43,22 @@ try {
   };
 
   userContestDetails.forEach((match) => {
-    if (match.matchDetails.matchState == "live") {
+    if (
+      match.matchDetails.matchState == "In progress"||
+      match.matchDetails.matchState == "live" ||
+      match.matchDetails.matchState == "In Progress" 
+    ) {
       updatedMatch.live.push(match);
     } else if (
       match.matchDetails.matchState == "upcoming" ||
-      match.matchDetails.matchState == "Preview"
+      match.matchDetails.matchState == "Preview" ||
+      match.matchDetails.matchState == "preview"
     ) {
       updatedMatch.upcoming.push(match);
-    } else if (match.matchDetails.matchState.toLowerCase() == "complete") {
+    } else if (
+      match.matchDetails.matchState.toLowerCase() == "complete" ||
+      match.matchDetails.matchState.toLowerCase() == "completed"
+    ) {
       updatedMatch.completed.push(match);
     }
   });

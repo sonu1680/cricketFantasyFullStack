@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, RefreshControl } from "react-native";
+import { View, Text, TouchableOpacity, RefreshControl, ScrollView } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { PanGestureHandler } from "react-native-gesture-handler";

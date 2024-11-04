@@ -6,7 +6,6 @@ import { usePlayerStore } from "../app/utils/store";
 
 const MatchList = ({ match, myContestDetails, isMyContest }) => {
   const router = useRouter();
-  
   const [myContestDetail, setMyContestDetail] = useState(myContestDetails);
 
   // Update state only when myContestDetails changes
@@ -35,6 +34,10 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
     matchTimeRemaining = match.matchStatus.slice(15, 22);
   } else {
     matchTimeRemaining = `${hours}h ${minutes}m`;
+  }
+  if(hours<=0 && minutes<=0){
+    
+    matchTimeRemaining = match.matchState;
   }
   const handleNavigation = ({ matchId, matchTimeRemaining }) => {
     setHeaderData({

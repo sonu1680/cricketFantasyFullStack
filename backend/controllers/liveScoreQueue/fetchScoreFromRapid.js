@@ -9,7 +9,18 @@ export const fetchScoreFromRapid = async () => {
       const matches = await liveScoreQueue.find(
         {
           matchSchedule: { $lte: time },
-          matchState: { $in: ["upcoming", "live","inprogress","Inprogress"] },
+          matchState: {
+            $in: [
+              "upcoming",
+              "live",
+              "inprogress",
+              "Inprogress",
+              "preview",
+              "Preview",
+              "In Progress",
+              "In progress",
+            ],
+          },
         },
         { matchId: 1 }
       );
@@ -42,6 +53,6 @@ export const fetchScoreFromRapid = async () => {
   };
 
   setInterval(async () => {
-    await getScore(); 
-  }, 150000);
+    await getScore();
+  }, 960000);
 };
