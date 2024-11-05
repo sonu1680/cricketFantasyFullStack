@@ -8,7 +8,6 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
   const router = useRouter();
   const [myContestDetail, setMyContestDetail] = useState(myContestDetails);
 
-  // Update state only when myContestDetails changes
   useEffect(() => {
     if (myContestDetails) {
       setMyContestDetail(myContestDetails);
@@ -17,28 +16,23 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
 
   const setHeaderData = usePlayerStore((state) => state.setHeaderData);
 
-  // Date and time calculations
-
   const matchTime = new Date(match.matchDetails[0].matchStartTimestamp);
   const currentTime = new Date();
   const timeDifference = matchTime - currentTime;
   const hours = Math.floor(timeDifference / (1000 * 60 * 60));
   const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-  let matchTimeRemaining = 0;
 
-  if (hours > 12 && hours < 24) {
-    matchTimeRemaining = "Today";
-  } else if (hours > 24 && hours < 48) {
-    matchTimeRemaining = "Tomorrow";
-  } else if (hours > 48) {
-    matchTimeRemaining = match.matchStatus.slice(15, 22);
-  } else {
-    matchTimeRemaining = `${hours}h ${minutes}m`;
-  }
-  if(hours<=0 && minutes<=0){
-    
+  let matchTimeRemaining =
+    hours > 12 && hours < 24
+      ? "Today"
+      : hours > 24 && hours < 48
+      ? "Tomorrow"
+      : `${hours}h ${minutes}m`;
+
+  if (hours <= 0 && minutes <= 0) {
     matchTimeRemaining = match.matchState;
   }
+
   const handleNavigation = ({ matchId, matchTimeRemaining }) => {
     setHeaderData({
       matchId: matchId,
@@ -61,7 +55,20 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
 
   return (
     <TouchableOpacity
-      className="select w-full h-32 bg-white rounded-xl shadow-sm shadow-black border-2 border-gray-300 mt-4 flex justify-around items-center"
+      style={{
+        width: "100%",
+        height: 130,
+        backgroundColor: "white",
+        borderRadius: 12,
+        shadowColor: "#000",
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        borderWidth: 1,
+        borderColor: "#e0e0e0",
+        marginVertical: 8,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+      }}
       onPress={() =>
         handleNavigation({
           matchId: match.matchId,
@@ -69,107 +76,130 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
         })
       }
     >
-      <View className="upper w-full h-6  flex justify-center items-center">
-        <Text className="matchType text-xs  font-popSb text-gray-600">
+      {/* Upper Section */}
+      <View style={{ alignItems: "center", marginBottom: 5 }}>
+        <Text style={{ fontSize: 12, fontWeight: "600", color: "#606060" }}>
           {match.seriesName}
         </Text>
       </View>
 
-      <View className="middle w-full h-20 flex flex-row justify-around items-center space-x-2">
-        <View className="left h-full w-2/6 flex justify-start flex-row space-x-2 items-center">
-          <View className="dot w-1.5 h-8 bg-red-600 rounded-tr-md rounded-br-md"></View>
-          <View className="w-12 h-12 rounded-full border-4 border-white flex justify-center items-center">
-            {match.matchDetails[0].team1.teamLogo == null ? (
-              <Image
-                source={require("../assets/playerImg.png")}
-                className="w-12 h-12 rounded-full"
-                resizeMode="cover"
-              />
-            ) : (
-              <Image
-                source={{
-                  uri: match.matchDetails[0].team1.teamLogo,
-                }}
-                className="w-12 h-12 rounded-full"
-                resizeMode="cover"
-              />
-            )}
+      {/* Middle Section */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingHorizontal: 10,
+        }}
+      >
+        {/* Team 1 */}
+        <View style={{ alignItems: "center", flexDirection: "row" }}>
+          <View
+            style={{
+              marginRight: 5,
+              borderRadius: 30,
+              overflow: "hidden",
+              borderWidth: 1,
+              borderColor: "#f0f0f0",
+            }}
+          >
+            <Image
+              source={
+                match.matchDetails[0].team1.teamLogo
+                  ? { uri: match.matchDetails[0].team1.teamLogo }
+                  : require("../assets/playerImg.png")
+              }
+              style={{ width: 50, height: 50 }}
+            />
           </View>
-          <Text className="team1 font-popSb text-lg">
+          <Text style={{ fontSize: 16, fontWeight: "700" }}>
             {match.matchDetails[0].team1.shortName}
           </Text>
         </View>
+
+        {/* Match State / Time */}
         {match.matchState == "live" ? (
-          <View className="middle h-full w-2/6 flex justify-center items-center">
-            <View className="timeRemain w-content h-content p-1 rounded-md bg-red-600/20">
-              <Text className="remain font-bold text-red-600 text-xs">
-                {match.matchState}
-              </Text>
-            </View>
+          <View
+            style={{ padding: 5, backgroundColor: "#ffefef", borderRadius: 6 }}
+          >
+            <Text style={{ color: "red", fontWeight: "bold", fontSize: 14 }}>
+              {match.matchState}
+            </Text>
           </View>
         ) : match.matchState == "Complete" ? (
-          <View className="middle h-full w-2/6 flex justify-center items-center">
-            <View className="timeRemain w-content h-content p-1 rounded-md bg-red-600/20">
-              <Text className="remain font-bold text-red-600 text-xs">
-                {match.matchState}
-              </Text>
-            </View>
+          <View
+            style={{ padding: 5, backgroundColor: "#eaffef", borderRadius: 6 }}
+          >
+            <Text style={{ color: "green", fontWeight: "bold", fontSize: 14 }}>
+              {match.matchState}
+            </Text>
           </View>
         ) : (
-          <View className="middle h-full w-2/6 flex justify-center items-center">
-            <View className="startTime">
-              <Text className="time font-normal text-gray-600/80 text-sm">
-                {new Date(
-                  match.matchDetails[0].matchStartTimestamp
-                ).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </Text>
-            </View>
-            <View className="timeRemain w-content h-content p-1 rounded-md bg-red-600/20">
-              <Text className="remain font-popSb text-red-600 text-xs">
-                {matchTimeRemaining}
-              </Text>
-            </View>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ fontSize: 12, color: "#808080" }}>
+              {new Date(
+                match.matchDetails[0].matchStartTimestamp
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Text>
+            <Text style={{ fontSize: 12, fontWeight: "600", color: "#ff6b6b" }}>
+              {matchTimeRemaining}
+            </Text>
           </View>
         )}
 
-        <View className="right h-full w-2/6 flex justify-end items-center flex-row space-x-2">
-          <Text className="team2 font-bold text-lg">
+        {/* Team 2 */}
+        <View style={{ alignItems: "center", flexDirection: "row" }}>
+          <Text style={{ fontSize: 16, fontWeight: "700" }}>
             {match.matchDetails[0].team2.shortName}
           </Text>
-          <View className="w-12 h-12 rounded-full border-4 border-white flex justify-center items-center">
-            {match.matchDetails[0].team2.teamLogo == null ? (
-              <Image
-                source={require("../assets/playerImg.png")}
-                className="w-12 h-12 rounded-full"
-                resizeMode="cover"
-              />
-            ) : (
-              <Image
-                source={{
-                  uri: match.matchDetails[0].team2.teamLogo,
-                }}
-                className="w-12 h-12 rounded-full"
-                resizeMode="cover"
-              />
-            )}
+          <View
+            style={{
+              marginLeft: 5,
+              borderRadius: 30,
+              overflow: "hidden",
+              borderWidth: 1,
+              borderColor: "#f0f0f0",
+            }}
+          >
+            <Image
+              source={
+                match.matchDetails[0].team2.teamLogo
+                  ? { uri: match.matchDetails[0].team2.teamLogo }
+                  : require("../assets/playerImg.png")
+              }
+              style={{ width: 50, height: 50 }}
+            />
           </View>
-          <View className="dot w-1.5 h-8 bg-red-600 rounded-tl-md rounded-bl-md"></View>
         </View>
       </View>
 
-      <View className="bottom w-full h-[29px] flex flex-row justify-between border-t-2 border-gray-200">
+      {/* Bottom Section */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          borderTopWidth: 1,
+          borderColor: "#f0f0f0",
+          paddingTop: 5,
+        }}
+      >
         <LinearGradient
           colors={["#90ff91", "#d0ffc5", "#edffed"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          className="w-2/6 h-full justify-center items-center rounded-bl-xl"
+          style={{
+            width: "45%",
+            borderRadius: 6,
+            alignItems: "center",
+            paddingVertical: 5,
+          }}
         >
-          <Text className="font-popSb text-xs text-center text-green-600 uppercase">
+          <Text style={{ color: "#28a745", fontSize: 12, fontWeight: "700" }}>
             {myContestDetail
-              ? myContestDetail.teamNo + " Team"
+              ? myContestDetail.teamNo + " Teams"
               : "1 prize ₹1000"}
           </Text>
         </LinearGradient>
@@ -177,11 +207,16 @@ const MatchList = ({ match, myContestDetails, isMyContest }) => {
           colors={["#ff9290", "#ffc5c5", "#edffed"]}
           start={{ x: 1, y: 0 }}
           end={{ x: 0, y: 0 }}
-          className="w-2/6 h-full justify-center items-center rounded-br-xl"
+          style={{
+            width: "45%",
+            borderRadius: 6,
+            alignItems: "center",
+            paddingVertical: 5,
+          }}
         >
-          <Text className="font-popSb text-xs text-center text-red-600 uppercase">
+          <Text style={{ color: "#ff4d4f", fontSize: 12, fontWeight: "700" }}>
             {myContestDetail
-              ? myContestDetail.contestNo + " Contest"
+              ? myContestDetail.contestNo + " Contests"
               : "winBike"}
           </Text>
         </LinearGradient>

@@ -3,7 +3,7 @@ import { postMyContest, postTempTeam } from "../controllers/postUserData/contest
 import { postTransaction } from '../controllers/postUserData/transcation.js';
 import { getTransaction } from '../controllers/getUserData/getTransaction.js';
 import { userContests } from '../controllers/getUserData/getContests.js';
-import { getTempTeam, previewTempTeam } from '../controllers/getUserData/getTempTeam.js';
+import {  previewTempTeam } from '../controllers/getUserData/getTempTeam.js';
 import { getMyMatches } from '../controllers/getUserData/getMyMatches.js';
 import { getBalance } from '../controllers/getUserData/getBalance.js';
 import { postUserProfile } from '../controllers/postUserData/postUserprofile.js';
@@ -21,7 +21,6 @@ userRoute.post("/postUserProfile",verifyToken, postUserProfile);
 
 userRoute.get("/getTransactions", verifyToken,getTransaction);
 userRoute.get("/getUserContests", verifyToken,userContests);
-userRoute.get("/gettempTeam", verifyToken,getTempTeam);
 userRoute.get("/previewTempTeam",verifyToken, previewTempTeam);
 userRoute.get("/getMyMatches",verifyToken, getMyMatches);
 userRoute.get("/getBalance",verifyToken, getBalance);
