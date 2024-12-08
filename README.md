@@ -16,37 +16,32 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 - **Database**: MongoDB
 
 ## Screenshots
+<div style="display: flex; flex-wrap: wrap; gap: 16px;">
 
 ### 1. Login
 <img src="./images/login.jpeg" alt="Home Screen" width="100" height="200">
 
-
 ### 2. Home Screen
 <img src="./images/home.jpeg" alt="Home Screen" width="100" height="200">
-
 
 ### 3. Contests
 <img src="./images/contestlist.jpeg" alt="Home Screen" width="100" height="200">
 
-
 ### 4. Wallet
 <img src="./images/wallet.jpeg" alt="Home Screen" width="100" height="200">
-
 
 ### 5. Setting
 <img src="./images/setting.jpeg" alt="Home Screen" width="100" height="200">
 
-
 ### 6. MyTeam
 <img src="./images/myteam.jpeg" alt="Home Screen" width="100" height="200">
-
 
 ### 7. Admin Dashboard
 <img src="./images/adminhome.png" alt="Home Screen" width="600" height="400">
 
-
 ### 8. Contest Creation
 <img src="./images/admincontest.png" alt="Home Screen" width="600" height="400">
+</div>
 
 
 ## Installation
