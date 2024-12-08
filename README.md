@@ -16,7 +16,7 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 - **Database**: MongoDB
 
 ## Screenshots
-<div style="display: flex; flex-wrap: wrap; gap: 16px;">
+<div style="display: flex;flex-direction:row; flex-wrap: wrap; gap: 16px;">
 
 ### 1. Login
 <img src="./images/login.jpeg" alt="Home Screen" width="100" height="200">
