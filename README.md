@@ -1,134 +1,129 @@
-# Cricket Fantasy App
+# 🏏 Cricket Fantasy App
 
-## Overview
-The Cricket Fantasy App allows users to create fantasy teams, participate in contests, and track real-time cricket matches. Designed for high scalability, the app supports over 100,000 concurrent users with real-time updates fetched every second. It is built with modern technologies to ensure seamless performance and reliability.
+## 📝 Overview
 
-## Features
-- **Real-Time Match Data**: Live updates using third-party APIs.
-- **Team Management**: Users can create and manage temporary teams based on match IDs.
-- **Dynamic Stats**: Calculate player selection statistics such as `selectedBy` dynamically.
-- **Admin Dashboard**: A React-based admin panel to manage matches and contests.
+Cricket Fantasy App is a cutting-edge mobile application that allows cricket enthusiasts to create fantasy teams, participate in contests, and track real-time cricket matches. Designed for high scalability, the app supports over 100,000 concurrent users with instantaneous updates.
 
-## Tech Stack
-- **Application**: React Native
+## ✨ Features
+
+- **Real-Time Match Data**: Live updates fetched from third-party APIs
+- **Team Management**: Create and manage dynamic fantasy teams
+- **Dynamic Player Statistics**: Real-time player selection insights
+- **Comprehensive Admin Dashboard**: Full contest and match management
+- **Secure Authentication**: JWT-based user authentication
+- **Wallet System**: Integrated financial transactions
+
+## 🖥️ Tech Stack
+
+- **Mobile App**: React Native
 - **Admin Panel**: React.js
 - **Backend**: Node.js
 - **Database**: MongoDB
+- **Authentication**: JSON Web Tokens (JWT)
 
-## Screenshots
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px;">
-
-### 1. Login
-  <img src="./images/login.jpeg" alt="Login Screen" style="width: 30%; height: auto;">
-
-### 2. Home Screen
-  <img src="./images/home.jpeg" alt="Home Screen" style="width: 30%; height: auto;">
-
-### 3. Contests
-  <img src="./images/contestlist.jpeg" alt="Contests" style="width: 30%; height: auto;">
-
-### 4. Wallet
-  <img src="./images/wallet.jpeg" alt="Wallet" style="width: 30%; height: auto;">
-
-### 5. Setting
-<img src="./images/setting.jpeg" alt="Home Screen" width="100" height="200">
-
-### 6. MyTeam
-  <img src="./images/myteam.jpeg" alt="My Team" style="width: 30%; height: auto;">
-
-</div>
-### 7. Admin Dashboard
-<img src="./images/adminhome.png" alt="Home Screen" width="600" height="400">
-
-### 8. Contest Creation
-<img src="./images/admincontest.png" alt="Home Screen" width="600" height="400">
-
-
-## Installation
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v16 or later)
-- MongoDB (running instance or cluster)
-- npm or yarn package manager
 
-### Clone the Repository
+- Node.js (v16+)
+- MongoDB
+- npm or yarn
+- React Native development environment
+
+### Installation
+
+1. Clone the repository
 ```bash
 git clone https://github.com/yourusername/cricket-fantasy-app.git
 cd cricket-fantasy-app
 ```
 
-### Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure environment variables:
-   Create a `.env` file in the backend directory with the following:
-   ```env
-   PORT=your port
-   MONGO_URI=your_mongodb_connection_string
-   API_KEY=your_third_party_api_key
-   JWT_SECRET=your_jwt_secret
-   ```
-4. Start the backend server:
-   ```bash
-   npm start
-   ```
+2. Setup Backend
+```bash
+cd backend
+npm install
+# Create .env file with necessary configurations
+npm start
+```
 
-### Frontend Setup
-1. Navigate to the frontend directory:
-   ```bash
-   cd adminDashboard
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+3. Setup Admin Dashboard
+```bash
+cd adminDashboard
+npm install
+npm run dev
+```
 
-### Mobile App Setup
-1. Install dependencies in the React Native app directory:
-   ```bash
-   cd androidApk
-   npm install
-   ```
-2. Run the app:
-   - For Android:
-     ```bash
-     npm run start
-     ```
+4. Setup Mobile App
+```bash
+cd androidApk
+npm install
+npm run start
+```
 
-## Usage
-- Launch the backend and frontend servers.
-- Open the mobile app to create teams, join contests, and track match stats.
-- Use the admin dashboard to manage contests and matches.
+## 🔐 Environment Variables
 
-## Contributing
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Make your changes and commit them:
-   ```bash
-   git commit -m "Added a new feature"
-   ```
-4. Push to your fork:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request.
+Create a `.env` file in the backend directory with:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+API_KEY=your_third_party_api_key
+JWT_SECRET=your_secure_jwt_secret
+```
 
-## License
-This project is licensed under the [MIT License](./LICENSE).
+## 📱 Screenshots
+
+### Mobile App
+<p float="left">
+  <img src="./images/login.jpeg" width="150" />
+  <img src="./images/home.jpeg" width="150" />
+  <img src="./images/contestlist.jpeg" width="150" />
+</p>
+
+### Admin Dashboard
+<p float="left">
+  <img src="./images/adminhome.png" width="400" />
+  <img src="./images/admincontest.png" width="400" />
+</p>
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📋 Todo
+
+- [ ] Implement advanced player analytics
+- [ ] Add more payment gateways
+- [ ] Develop iOS version
+- [ ] Create comprehensive test suite
+
+## 🔒 Security
+
+- JWT-based authentication
+- Bcrypt password hashing
+- Input validation and sanitization
+- Rate limiting implemented
+
+## 📊 Performance
+
+- Supports 100,000+ concurrent users
+- Real-time updates every second
+- Optimized MongoDB queries
+- Efficient caching mechanisms
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 📞 Contact
+
+Sonu Kumar Pandit - sonupandit1680@gmail.com
+
+Project Link: [https://github.com/yourusername/cricket-fantasy-app](https://github.com/yourusername/cricket-fantasy-app)
 
 ---
 
-Feel free to reach out with any questions or suggestions!
+**⭐ Don't forget to star this repository if you find it helpful!**
