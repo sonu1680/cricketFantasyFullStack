@@ -10,7 +10,7 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 - **Admin Dashboard**: A React-based admin panel to manage matches and contests.
 
 ## Tech Stack
-- **Application**: React Native Expo
+- **Application**: React Native
 - **Admin Panel**: React.js
 - **Backend**: Node.js
 - **Database**: MongoDB
@@ -18,28 +18,36 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 ## Screenshots
 
 ### 1. Login
-![Home Screen](./images/login.png)
+![Home Screen](./images/login.jpeg)
+{: width="600" height="400"}
 
 ### 2. Home Screen
-![Home Screen](./images/home.png)
+![Home Screen](./images/home.jpeg)
+{: width="600" height="400"}
 
 ### 3. Contests
-![Home Screen](./images/contestlist.png)
+![Home Screen](./images/contestlist.jpeg)
+{: width="600" height="400"}
 
 ### 4. Wallet
-![Home Screen](./images/wallet.png)
+![Home Screen](./images/wallet.jpeg)
+{: width="600" height="400"}
 
 ### 5. Setting
-![Home Screen](./images/setting.png)
+![Home Screen](./images/setting.jpeg)
+{: width="600" height="400"}
 
 ### 6. MyTeam
-![Team Creation](./images/myteam.png)
+![Team Creation](./images/myteam.jpeg)
+{: width="600" height="400"}
 
 ### 7. Admin Dashboard
 ![Admin Dashboard](./images/adminhome.png)
+{: width="600" height="400"}
 
 ### 8. Contest Creation
 ![Admin Dashboard](./images/admincontest.png)
+{: width="600" height="400"}
 
 ## Installation
 
