@@ -10,44 +10,20 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 - **Admin Dashboard**: A React-based admin panel to manage matches and contests.
 
 ## Tech Stack
-- **Application**: React Native
-- **Admin Panel**: React.js
+- **Frontend**: React Native
 - **Backend**: Node.js
 - **Database**: MongoDB
 
 ## Screenshots
 
-### 1. Login
-![Home Screen](./images/login.jpeg)
-{: width="600" height="400"}
+### 1. Home Screen
+<img src="./images/home_screen.png" alt="Home Screen" width="600" height="400">
 
-### 2. Home Screen
-![Home Screen](./images/home.jpeg)
-{: width="600" height="400"}
+### 2. Team Creation
+<img src="./images/team_creation.png" alt="Team Creation" width="600" height="400">
 
-### 3. Contests
-![Home Screen](./images/contestlist.jpeg)
-{: width="600" height="400"}
-
-### 4. Wallet
-![Home Screen](./images/wallet.jpeg)
-{: width="600" height="400"}
-
-### 5. Setting
-![Home Screen](./images/setting.jpeg)
-{: width="600" height="400"}
-
-### 6. MyTeam
-![Team Creation](./images/myteam.jpeg)
-{: width="600" height="400"}
-
-### 7. Admin Dashboard
-![Admin Dashboard](./images/adminhome.png)
-{: width="600" height="400"}
-
-### 8. Contest Creation
-![Admin Dashboard](./images/admincontest.png)
-{: width="600" height="400"}
+### 3. Admin Dashboard
+<img src="./images/admin_dashboard.png" alt="Admin Dashboard" width="600" height="400">
 
 ## Installation
 
@@ -74,7 +50,7 @@ cd cricket-fantasy-app
 3. Configure environment variables:
    Create a `.env` file in the backend directory with the following:
    ```env
-   PORT=your port
+   PORT=4000
    MONGO_URI=your_mongodb_connection_string
    API_KEY=your_third_party_api_key
    JWT_SECRET=your_jwt_secret
@@ -87,7 +63,7 @@ cd cricket-fantasy-app
 ### Frontend Setup
 1. Navigate to the frontend directory:
    ```bash
-   cd adminDashboard
+   cd frontend
    ```
 2. Install dependencies:
    ```bash
@@ -95,19 +71,23 @@ cd cricket-fantasy-app
    ```
 3. Start the development server:
    ```bash
-   npm run dev
+   npm start
    ```
 
 ### Mobile App Setup
 1. Install dependencies in the React Native app directory:
    ```bash
-   cd androidApk
+   cd mobile-app
    npm install
    ```
 2. Run the app:
    - For Android:
      ```bash
-     npm run start
+     npx react-native run-android
+     ```
+   - For iOS:
+     ```bash
+     npx react-native run-ios
      ```
 
 ## Usage
