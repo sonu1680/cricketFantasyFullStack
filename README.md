@@ -10,20 +10,36 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 - **Admin Dashboard**: A React-based admin panel to manage matches and contests.
 
 ## Tech Stack
-- **Frontend**: React Native
+- **Application**: React Native Expo
+- **Admin Panel**: React.js
 - **Backend**: Node.js
 - **Database**: MongoDB
 
 ## Screenshots
 
-### 1. Home Screen
-![Home Screen](./images/home_screen.png)
+### 1. Login
+![Home Screen](./images/login.png)
 
-### 2. Team Creation
-![Team Creation](./images/team_creation.png)
+### 2. Home Screen
+![Home Screen](./images/home.png)
 
-### 3. Admin Dashboard
-![Admin Dashboard](./images/admin_dashboard.png)
+### 3. Contests
+![Home Screen](./images/contestlist.png)
+
+### 4. Wallet
+![Home Screen](./images/wallet.png)
+
+### 5. Setting
+![Home Screen](./images/setting.png)
+
+### 6. MyTeam
+![Team Creation](./images/myteam.png)
+
+### 7. Admin Dashboard
+![Admin Dashboard](./images/adminhome.png)
+
+### 8. Contest Creation
+![Admin Dashboard](./images/admincontest.png)
 
 ## Installation
 
@@ -50,7 +66,7 @@ cd cricket-fantasy-app
 3. Configure environment variables:
    Create a `.env` file in the backend directory with the following:
    ```env
-   PORT=4000
+   PORT=your port
    MONGO_URI=your_mongodb_connection_string
    API_KEY=your_third_party_api_key
    JWT_SECRET=your_jwt_secret
@@ -63,7 +79,7 @@ cd cricket-fantasy-app
 ### Frontend Setup
 1. Navigate to the frontend directory:
    ```bash
-   cd frontend
+   cd adminDashboard
    ```
 2. Install dependencies:
    ```bash
@@ -71,23 +87,19 @@ cd cricket-fantasy-app
    ```
 3. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 ### Mobile App Setup
 1. Install dependencies in the React Native app directory:
    ```bash
-   cd mobile-app
+   cd androidApk
    npm install
    ```
 2. Run the app:
    - For Android:
      ```bash
-     npx react-native run-android
-     ```
-   - For iOS:
-     ```bash
-     npx react-native run-ios
+     npm run start
      ```
 
 ## Usage
