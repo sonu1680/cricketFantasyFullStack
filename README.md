@@ -18,35 +18,35 @@ The Cricket Fantasy App allows users to create fantasy teams, participate in con
 ## Screenshots
 
 ### 1. Login
-<img src="./images/login.jpeg" alt="Home Screen" width="600" height="400">
+<img src="./images/login.jpeg" alt="Home Screen" width="720" height="1280">
 
 
 ### 2. Home Screen
-<img src="./images/home.jpeg" alt="Home Screen" width="600" height="400">
+<img src="./images/home.jpeg" alt="Home Screen" width="720" height="1280">
 
 
 ### 3. Contests
-<img src="./images/contestlist.jpeg" alt="Home Screen" width="600" height="400">
+<img src="./images/contestlist.jpeg" alt="Home Screen" width="720" height="1280">
 
 
 ### 4. Wallet
-<img src="./images/wallet.jpeg" alt="Home Screen" width="600" height="400">
+<img src="./images/wallet.jpeg" alt="Home Screen" width="720" height="1280">
 
 
 ### 5. Setting
-<img src="./images/setting.jpeg" alt="Home Screen" width="600" height="400">
+<img src="./images/setting.jpeg" alt="Home Screen" width="720" height="1280">
 
 
 ### 6. MyTeam
-<img src="./images/myteam.jpeg" alt="Home Screen" width="600" height="400">
+<img src="./images/myteam.jpeg" alt="Home Screen" width="720" height="1280">
 
 
 ### 7. Admin Dashboard
-<img src="./images/adminhome" alt="Home Screen" width="600" height="400">
+<img src="./images/adminhome.png" alt="Home Screen" width="600" height="400">
 
 
 ### 8. Contest Creation
-<img src="./images/admincontest" alt="Home Screen" width="600" height="400">
+<img src="./images/admincontest.png" alt="Home Screen" width="600" height="400">
 
 
 ## Installation
