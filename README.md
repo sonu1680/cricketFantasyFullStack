@@ -74,8 +74,8 @@ JWT_SECRET=your_secure_jwt_secret
 
 ### Mobile App
 <p float="left">
-  <img src="./images/login.jpeg" width="150" />
-  <img src="./images/home.jpeg" width="150" />
+  <img src="./images/login.jpeg" width="150" style="margin-right: 20px;" />
+  <img src="./images/home.jpeg" width="150" style="margin-right: 20px;" />
   <img src="./images/contestlist.jpeg" width="150" />
 </p>
 
