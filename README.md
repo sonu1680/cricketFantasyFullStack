@@ -123,7 +123,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Sonu Kumar Pandit - sonupandit1680@gmail.com
 
-Project Link: [https://github.com/yourusername/cricket-fantasy-app](https://github.com/yourusername/cricket-fantasy-app)
+Project Link: [https://github.com/yourusername/cricket-fantasy-app](https://github.com/sonu1680/cricket-fantasy-app)
 
 ---
 
